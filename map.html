@@ -46,7 +46,7 @@
       var features = [];
 
       $('input:checked').each(function() {
-         $.getJSON('http://www.wittprojects.net/dev/descalzas/test.php?person='+this.value, function (data) { features = map.data.addGeoJson(data) 
+         $.getJSON('http://www.wittprojects.net/dev/descalzas/geojson.php?person='+this.value, function (data) { features = map.data.addGeoJson(data) 
       });
 
 
