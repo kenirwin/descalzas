@@ -26,10 +26,14 @@ $zaragoza  = array ("name" => "Zaragoza",
 		     "long" => -0.8891);
 $people=array(
 	      'alej' => array('madrid','barcelona'),
-	      'betsy' => array('cordoba','valladolid','caceres'),
+	      'betsy' => array('cordoba','valladolid','caceres','madrid'),
 	      'kate' => array('madrid','zaragoza'),
 	      'ken'=> array('toledo','madrid'),
-	      'pat' => array('cordoba','toledo'),
+	      'pat' => array('cordoba','toledo','madrid'),
+	      'esther' => array('cordoba','valladolid','madrid'),
+	      'andy' => array('toledo','barcelona','valladolid','madrid'),
+	      'bill' => array('madrid','cordoba','toledo'),
+	      'maureen' => array('madrid', 'zaragoza', 'caceres'),
 	      );
 
 $p = $_REQUEST['person'];
@@ -37,10 +41,19 @@ $traveler_id = array_search($_REQUEST['person'],array_keys($people));
 foreach ($people[$p] as $city) {
   $mycity = $$city;
   $mycity['traveler'] = $traveler_id;
-  $offset = $traveler_id *.001;
-  $temp = $coll->createPoint($mycity,$offset);
+  $offset = getOffset($traveler_id);
+  $temp = $coll->createPoint($mycity,$offset['lat'],$offset['long']);
   $coll->addFeature($temp);
 }
 print($coll->getJson());
 
+function getOffset ($id) {
+  $mult = 0.007;
+  print $id;
+  if ($id == 0) { return['lat'=>0,'long'=>0]; }
+  elseif ($id%4 == 0) { return ['lat'=> $id*$mult, 'long'=>$id*$mult]; }
+  elseif ($id%3 == 0) { return ['lat'=> $id*$mult, 'long'=>$id*$mult*(-1)]; }
+  elseif ($id%2 == 0) { return ['lat'=> $id*$mult*(-1), 'long'=>$id*$mult*(-1)]; }
+  else { return ['lat'=> $id*$mult*(-1), 'long'=>$id*$mult]; }
+}
 ?>
