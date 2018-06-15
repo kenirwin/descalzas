@@ -37,7 +37,11 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
 	var options = {
 	center: {lat: 40.4168, lng: -3.7083},
 	zoom: 7,
-	mapTypeId: 'terrain'
+	mapTypeId: 'terrain',
+	styles:[{
+	      "featureType": "road",
+	      "stylers": [{ "visibility" : "off" }]
+	    }]
 	}
 	map = new google.maps.Map(document.getElementById('map'), options);
 	
