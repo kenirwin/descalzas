@@ -14,7 +14,7 @@ $toledo = array ("name" => "Toledo",
 		 "long"=>-4.0273,);
 $valladolid = array ("name" => "Valladolid",
 		     "lat" => 41.6523,
-		     "long" => -41.6523);
+		     "long" => -4.7123);
 $caceres = array ("name" => "Caceres",
 		     "lat" => 39.4753,
 		     "long" => -6.3724);
