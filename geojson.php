@@ -35,7 +35,7 @@ $people=array(
 	      'bill' => array('madrid','cordoba','toledo'),
 	      'maureen' => array('madrid', 'zaragoza', 'caceres'),
 	      );
-
+ksort($people);
 $p = $_REQUEST['person'];
 $traveler_id = array_search($_REQUEST['person'],array_keys($people));
 foreach ($people[$p] as $city) {
