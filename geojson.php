@@ -49,7 +49,6 @@ print($coll->getJson());
 
 function getOffset ($id) {
   $mult = 0.007;
-  print $id;
   if ($id == 0) { return['lat'=>0,'long'=>0]; }
   elseif ($id%4 == 0) { return ['lat'=> $id*$mult, 'long'=>$id*$mult]; }
   elseif ($id%3 == 0) { return ['lat'=> $id*$mult, 'long'=>$id*$mult*(-1)]; }
