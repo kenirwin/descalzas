@@ -47,7 +47,6 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
 	
 	var colors = ['red','green','blue','yellow','purple'];
 	$('input').change(function() {
-	    $(document).ready(function() {
 		map.data.forEach(function(feature) {
 		    map.data.remove(feature);
 		  });
@@ -64,7 +63,6 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
 		      });
 		    
 		  });//end each checked input
-	      });//end ready function
 	  });//end input.change()
 	
       }
