@@ -18,7 +18,9 @@ $people=array(
 
 $p = $_REQUEST['person'];
 foreach ($people[$p] as $city) {
-  $temp = $coll->createPoint($$city);
+  $mycity = $$city;
+  $mycity['traveler'] = $p;
+  $temp = $coll->createPoint($mycity);
   $coll->addFeature($temp);
 }
 print($coll->getJson());
