@@ -37,7 +37,8 @@ $traveler_id = array_search($_REQUEST['person'],array_keys($people));
 foreach ($people[$p] as $city) {
   $mycity = $$city;
   $mycity['traveler'] = $traveler_id;
-  $temp = $coll->createPoint($mycity);
+  $offset = $traveler_id *.001;
+  $temp = $coll->createPoint($mycity,$offset);
   $coll->addFeature($temp);
 }
 print($coll->getJson());

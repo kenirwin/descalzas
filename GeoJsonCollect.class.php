@@ -11,12 +11,12 @@ class GeoJsonCollect {
     return (json_encode($this->collection));
   }
   
-  public function createPoint($params) { //returns an array
+  public function createPoint($params, $offset=0) { //returns an array
     //expects minimum params: lat, long
     //other params: name, description, country
     if (array_key_exists('lat',$params) && array_key_exists('long',$params)) {
       $geometry = array('type'=>'Point',
-				'coordinates'=> [$params['long'],$params['lat']]
+				'coordinates'=> [$params['long']+$offset,$params['lat']]
 				);
       $feature = array();
       foreach ($params as $key => $value) {
