@@ -16,14 +16,18 @@
         margin: 0;
         padding: 0;
       }
+li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px; padding: 5px; font-family: Arial, Helvetica, sans-serif; }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
     <div id="selection">
       <ul>
-      <li><input type="checkbox" value="alej"> Alej</li>
-      <li><input type="checkbox" value="ken"> Ken</li>
+      <li><input type="checkbox" id="alej" value="alej"> <label for="alej">Alejandra</label></li>
+      <li><input type="checkbox" id="betsy" value="betsy"> <label for="betsy">Betsy</a></li>
+      <li><input type="checkbox" id="kate" value="kate"> <label for="kate">Kate</a></li>
+      <li><input type="checkbox" id="ken" value="ken"> <label for="ken">Ken</a></li>
+      <li><input type="checkbox" id="pat" value="pat"> <label for="pat">Patrick</a></li>
       </ul>
     </div>
     <div id="map"></div>
@@ -37,7 +41,7 @@
 	}
 	map = new google.maps.Map(document.getElementById('map'), options);
 	
-	
+	var colors = ['red','green','blue','yellow','purple'];
 	$('input').change(function() {
 	    $(document).ready(function() {
 		map.data.forEach(function(feature) {
@@ -50,11 +54,9 @@
 			  });
 		    map.data.setStyle(feature=> {
 			const person = feature.getProperty('traveler');
-			if (person == 'ken') {
 			  return {
-			  icon: 'http://maps.google.com/mapfiles/ms/icons/green.png'
+			  icon: 'http://maps.google.com/mapfiles/ms/icons/'+colors[person]+'.png'
 			      }
-			    }
 		      });
 		    
 		  });//end each checked input

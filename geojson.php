@@ -25,17 +25,18 @@ $zaragoza  = array ("name" => "Zaragoza",
 		     "lat" => 41.6488,
 		     "long" => -0.8891);
 $people=array(
-	      'ken'=> array('toledo','madrid'),
 	      'alej' => array('madrid','barcelona'),
 	      'betsy' => array('cordoba','valladolid','caceres'),
-	      'pat' => array('cordoba','toledo'),
 	      'kate' => array('madrid','zaragoza'),
+	      'ken'=> array('toledo','madrid'),
+	      'pat' => array('cordoba','toledo'),
 	      );
 
 $p = $_REQUEST['person'];
+$traveler_id = array_search($_REQUEST['person'],array_keys($people));
 foreach ($people[$p] as $city) {
   $mycity = $$city;
-  $mycity['traveler'] = $p;
+  $mycity['traveler'] = $traveler_id;
   $temp = $coll->createPoint($mycity);
   $coll->addFeature($temp);
 }
