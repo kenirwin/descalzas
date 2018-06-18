@@ -26,13 +26,13 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
       <ul>
       <li><input type="checkbox" id="alej" value="alej" checked> <label for="alej">Alejandra</label></li>
       <li><input type="checkbox" id="andy" value="andy" checked> <label for="andy">Andy</label></li>
-      <li><input type="checkbox" id="betsy" value="betsy" checked> <label for="betsy">Betsy</a></li>
-      <li><input type="checkbox" id="bill" value="bill" checked> <label for="bill">Bill</a></li>
+      <li><input type="checkbox" id="betsy" value="betsy" checked> <label for="betsy">Betsy</label></li>
+      <li><input type="checkbox" id="bill" value="bill" checked> <label for="bill">Bill</label></li>
 <li><input type="checkbox" id="esther" value="esther" checked> <label for="esther">Esther</label></li>     
-      <li><input type="checkbox" id="kate" value="kate" checked> <label for="kate">Kate</a></li>
-      <li><input type="checkbox" id="ken" value="ken" checked> <label for="ken">Ken</a></li>
-      <li><input type="checkbox" id="maureen" value="maureen" checked> <label for="maureen">Maureen</a></li>
-      <li><input type="checkbox" id="pat" value="pat" checked> <label for="pat">Patrick</a></li>
+      <li><input type="checkbox" id="kate" value="kate" checked> <label for="kate">Kate</label></li>
+      <li><input type="checkbox" id="ken" value="ken" checked> <label for="ken">Ken</label></li>
+      <li><input type="checkbox" id="maureen" value="maureen" checked> <label for="maureen">Maureen</label></li>
+      <li><input type="checkbox" id="pat" value="pat" checked> <label for="pat">Patrick</label></li>
       </ul>
     </div>
     <div id="map"></div>
