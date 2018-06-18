@@ -24,15 +24,15 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
   <body>
     <div id="selection">
       <ul>
-      <li><input type="checkbox" id="alej" value="alej" checked> <label for="alej">Alejandra</label></li>
-      <li><input type="checkbox" id="andy" value="andy" checked> <label for="andy">Andy</label></li>
-      <li><input type="checkbox" id="betsy" value="betsy" checked> <label for="betsy">Betsy</label></li>
-      <li><input type="checkbox" id="bill" value="bill" checked> <label for="bill">Bill</label></li>
-<li><input type="checkbox" id="esther" value="esther" checked> <label for="esther">Esther</label></li>     
-      <li><input type="checkbox" id="kate" value="kate" checked> <label for="kate">Kate</label></li>
-      <li><input type="checkbox" id="ken" value="ken" checked> <label for="ken">Ken</label></li>
-      <li><input type="checkbox" id="maureen" value="maureen" checked> <label for="maureen">Maureen</label></li>
-      <li><input type="checkbox" id="pat" value="pat" checked> <label for="pat">Patrick</label></li>
+      <li><input type="checkbox" id="alej" value="alej" checked> <label for="alej">Alejandra</label><img class="icon" /></li>
+      <li><input type="checkbox" id="andy" value="andy" checked> <label for="andy">Andy</label><img class="icon" /></li>
+      <li><input type="checkbox" id="betsy" value="betsy" checked> <label for="betsy">Betsy</label><img class="icon" /></li>
+      <li><input type="checkbox" id="bill" value="bill" checked> <label for="bill">Bill</label><img class="icon" /></li>
+<li><input type="checkbox" id="esther" value="esther" checked> <label for="esther">Esther</label><img class="icon" /></li>     
+      <li><input type="checkbox" id="kate" value="kate" checked> <label for="kate">Kate</label><img class="icon" /></li>
+      <li><input type="checkbox" id="ken" value="ken" checked> <label for="ken">Ken</label><img class="icon" /></li>
+      <li><input type="checkbox" id="maureen" value="maureen" checked> <label for="maureen">Maureen</label><img class="icon" /></li>
+      <li><input type="checkbox" id="pat" value="pat" checked> <label for="pat">Patrick</label><img class="icon" /></li>
       </ul>
     </div>
     <div id="map"></div>
@@ -68,9 +68,10 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
             $.getJSON('http://www.wittprojects.net/dev/descalzas/geojson.php?person='+this.value, function (data) { features = map.data.addGeoJson(data) 
           });
             map.data.setStyle(feature=> {
-        const person = feature.getProperty('traveler');
+        var person = feature.getProperty('traveler');
+	var icon_url = 'http://maps.google.com/mapfiles/ms/icons/'+colors[person]+'.png' 
         return {
-        icon: 'http://maps.google.com/mapfiles/ms/icons/'+colors[person]+'.png'
+        icon: icon_url
             }
       });
             
