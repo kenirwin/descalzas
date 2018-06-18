@@ -70,6 +70,8 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
             map.data.setStyle(feature=> {
         var person = feature.getProperty('traveler');
 	var icon_url = 'http://maps.google.com/mapfiles/ms/icons/'+colors[person]+'.png' 
+	  var person_index = person + 1;
+	  $('#selection ul li:nth-child('+person_index+') img.icon').attr('src',icon_url);
         return {
         icon: icon_url
             }
