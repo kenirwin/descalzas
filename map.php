@@ -50,8 +50,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
       }
       map = new google.maps.Map(document.getElementById('map'), options);
       
-      map.data.loadGeoJson('geojson.php', {}, );
-
+      map.data.loadGeoJson('geojson.php');
 
       var colors = ['#FFCC00', '#FFFF00', '#CCFF00', '#99FF00', '#33FF00', '#00FF66', '#00FF99', '#00FFCC', '#FF0000', '#FF3300', '#FF6600', '#FF9900'];
 
@@ -90,7 +89,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 	      map.data.overrideStyle(feat,{'visible':vis[p]});
 	    });
 	});
-      
+
       } //end initMap
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntYifbqyiilv85_sjj4OgwhgsAGecEGA&callback=initMap"
