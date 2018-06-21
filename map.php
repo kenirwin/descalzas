@@ -17,12 +17,12 @@
         margin: 0;
         padding: 0;
       }
-li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px; padding: 5px; font-family: Arial, Helvetica, sans-serif; }
+li { display: inline-block; background-color: #666;color:#000; margin-left: 10px; padding: 5px; font-family: Arial, Helvetica, sans-serif; }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="selection">
+    <div id="controls">
       <ul>
       <li><input type="checkbox" id="alej" value="alej" checked> <label for="alej">Alejandra</label><img class="icon" /></li>
       <li><input type="checkbox" id="andy" value="andy" checked> <label for="andy">Andy</label><img class="icon" /></li>
@@ -50,35 +50,46 @@ li { display: inline-block; background-color: #666;color:#eee; margin-left: 10px
       }
       map = new google.maps.Map(document.getElementById('map'), options);
       
-      $('input').change(function() {
-          UpdatePins(map);
-        });//end input.change()
+      map.data.loadGeoJson('geojson.php', {}, );
+
+
+      var colors = ['#FFCC00', '#FFFF00', '#CCFF00', '#99FF00', '#33FF00', '#00FF66', '#00FF99', '#00FFCC', '#FF0000', '#FF3300', '#FF6600', '#FF9900'];
+
+
+      $('#controls li').each(function(i) {
+	  console.log($(this).text() + ' ' +colors[i]);
+	  $(this).css('background-color',colors[i]);
+	});
+
+      map.data.setStyle(function(feat) {
+	  var id = feat.getProperty('travelerId');
+	  return ({
+	    icon: { 
+	      	  path: google.maps.SymbolPath.CIRCLE,
+	      fillColor: colors[id],
+	      fillOpacity: 0.6,
+	      strokeWeight: 0.5,
+	      strokeColor: '#fff',
+		scale: 10,
+		visible: true,
+		  }
+		});
+	});
+
+      google.maps.event.addDomListener(document.getElementById('controls'), 'click', function () {
+	  var vis = [];
+	  $('#controls ul li input:checkbox').each(function(i) {
+	      var p = $(this).attr('id');
+	      vis[p] = this.checked;
+	    });
+	  console.log(vis);
+	  map.data.forEach(function(feat) {
+	      //	      overrideStyle(function(feat, 'visible') {
+	      var p = feat.getProperty('travelerName');
+	      map.data.overrideStyle(feat,{'visible':vis[p]});
+	    });
+	});
       
-      UpdatePins(map);
-
-      function UpdatePins(map) {
-        var colors = ['red','orange','yellow','green','blue','purple','pink','lightblue','red-dot','orange-dot','yellow-dot','green-dot','blue-dot','purple-dot','pink-dot','ltblue-dot'];
-
-        map.data.forEach(function(feature) {
-            map.data.remove(feature);
-          });
-        var features = [];
-        
-        $('input:checked').each(function() {
-            $.getJSON('http://www.wittprojects.net/dev/descalzas/geojson.php?person='+this.value, function (data) { features = map.data.addGeoJson(data) 
-          });
-            map.data.setStyle(feature=> {
-        var person = feature.getProperty('traveler');
-	var icon_url = 'http://maps.google.com/mapfiles/ms/icons/'+colors[person]+'.png' 
-	  var person_index = person + 1;
-	  $('#selection ul li:nth-child('+person_index+') img.icon').attr('src',icon_url);
-        return {
-        icon: icon_url
-            }
-      });
-            
-          });//end each checked input
-      } //end UpdatePins
       } //end initMap
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntYifbqyiilv85_sjj4OgwhgsAGecEGA&callback=initMap"
