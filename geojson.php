@@ -25,7 +25,7 @@ $zaragoza  = array ("name" => "Zaragoza",
 		     "lat" => 41.6488,
 		     "long" => -0.8891);
 $people=array(
-	      'alej' => array('madrid','barcelona'),
+	      'alej' => array('barcelona','madrid'),
 	      'betsy' => array('cordoba','valladolid','caceres','madrid'),
 	      'kate' => array('madrid','zaragoza'),
 	      'ken'=> array('toledo','madrid'),
@@ -45,14 +45,16 @@ else {
 
 foreach ($pToGet as $p) {
   $traveler_id = array_search($p, array_keys($people));
-  
+  $i = 1;
   foreach ($people[$p] as $city) {
     $mycity = $$city;
     $mycity['travelerId'] = $traveler_id;
     $mycity['travelerName'] = $p;
+    $mycity['nth-city'] = $i;
     $offset = getOffset($traveler_id);
     $temp = $coll->createPoint($mycity,$offset['lat'],$offset['long']);
     $coll->addFeature($temp);
+    $i++;
   }
 }
 print($coll->getJson());

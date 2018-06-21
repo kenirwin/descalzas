@@ -64,10 +64,11 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
       map.data.setStyle(function(feat) {
 	  var id = feat.getProperty('travelerId');
 	  return ({
+	    label: feat.getProperty('nth-city'),
 	    icon: { 
 	      	  path: google.maps.SymbolPath.CIRCLE,
 	      fillColor: colors[id],
-	      fillOpacity: 0.6,
+	      fillOpacity: 0.8,
 	      strokeWeight: 0.5,
 	      strokeColor: '#fff',
 		scale: 10,
