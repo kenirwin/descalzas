@@ -36,11 +36,13 @@ $people=array(
 	      'maureen' => array('madrid', 'zaragoza', 'caceres'),
 	      );
 ksort($people);
+
 $p = $_REQUEST['person'];
 $traveler_id = array_search($_REQUEST['person'],array_keys($people));
 foreach ($people[$p] as $city) {
   $mycity = $$city;
-  $mycity['traveler'] = $traveler_id;
+  $mycity['travelerId'] = $traveler_id;
+  $mycity['travelerName'] = $p;
   $offset = getOffset($traveler_id);
   $temp = $coll->createPoint($mycity,$offset['lat'],$offset['long']);
   $coll->addFeature($temp);
