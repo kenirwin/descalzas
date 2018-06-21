@@ -36,16 +36,24 @@ $people=array(
 	      'maureen' => array('madrid', 'zaragoza', 'caceres'),
 	      );
 ksort($people);
+if (isset($_REQUEST['person'])) {
+  $pToGet = array ($_REQUEST['person']);
+}
+else {
+  $pToGet = array_keys($people);
+}
 
-$p = $_REQUEST['person'];
-$traveler_id = array_search($_REQUEST['person'],array_keys($people));
-foreach ($people[$p] as $city) {
-  $mycity = $$city;
-  $mycity['travelerId'] = $traveler_id;
-  $mycity['travelerName'] = $p;
-  $offset = getOffset($traveler_id);
-  $temp = $coll->createPoint($mycity,$offset['lat'],$offset['long']);
-  $coll->addFeature($temp);
+foreach ($pToGet as $p) {
+  $traveler_id = array_search($p, array_keys($people));
+  
+  foreach ($people[$p] as $city) {
+    $mycity = $$city;
+    $mycity['travelerId'] = $traveler_id;
+    $mycity['travelerName'] = $p;
+    $offset = getOffset($traveler_id);
+    $temp = $coll->createPoint($mycity,$offset['lat'],$offset['long']);
+    $coll->addFeature($temp);
+  }
 }
 print($coll->getJson());
 
