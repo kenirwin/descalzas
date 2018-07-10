@@ -110,6 +110,8 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
           infowindow.setPosition(event.feature.getGeometry().get());
 	  infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
           infowindow.open(map);
+	  map.data.overrideStyle(event.feature,{'zIndex':nextZ});
+	  nextZ++;
 	});    
 
       } //end initMap
