@@ -36,10 +36,13 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
     </div>
     <div id="map"></div>
     <script>
-      var map;
+										  var map;
+
+
       function initMap() {
+	var infowindow = new google.maps.InfoWindow();
 	var nextZ = 100;
-      var options = {
+	var options = {
       center: {lat: 40.4168, lng: -3.7083},
       zoom: 7,
       mapTypeId: 'terrain',
@@ -74,7 +77,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 		visible: true,
 		  }
 		});
-	});
+	}); // end setStyle
 
       google.maps.event.addDomListener($('#controls li input').click(function () {
 	    var whoWasClicked = $(this).attr('id');
@@ -95,8 +98,20 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 		  nextZ++;
 		}
 	    });
-	  }));
+	  })); //end addDomListener
 	
+
+      map.data.addListener('click', function(event) {
+	  var title = event.feature.getProperty('travelerName') + ' in ' + event.feature.getProperty('name');
+	  title = title.charAt(0).toUpperCase() + title.substr(1);
+	  var stop = event.feature.getProperty('nth-city');
+          var myHTML = "<h1>"+title+"</h1><p>Stop number: "+stop+"</p>"; //event.feature.getProperty("Description");
+	  infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
+          infowindow.setPosition(event.feature.getGeometry().get());
+	  infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+          infowindow.open(map);
+	});    
+
       } //end initMap
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntYifbqyiilv85_sjj4OgwhgsAGecEGA&callback=initMap"
