@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -39,6 +38,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
     <script>
       var map;
       function initMap() {
+	var nextZ = 100;
       var options = {
       center: {lat: 40.4168, lng: -3.7083},
       zoom: 7,
@@ -76,20 +76,27 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 		});
 	});
 
-      google.maps.event.addDomListener(document.getElementById('controls'), 'click', function () {
+      google.maps.event.addDomListener($('#controls li input').click(function () {
+	    var whoWasClicked = $(this).attr('id');
+	    //console.log(whoWasClicked);
 	  var vis = [];
 	  $('#controls ul li input:checkbox').each(function(i) {
 	      var p = $(this).attr('id');
 	      vis[p] = this.checked;
 	    });
-	  console.log(vis);
+	  //console.log(vis);
 	  map.data.forEach(function(feat) {
 	      //	      overrideStyle(function(feat, 'visible') {
 	      var p = feat.getProperty('travelerName');
 	      map.data.overrideStyle(feat,{'visible':vis[p]});
+	      if (p == whoWasClicked && vis[p] === true) 
+		{ 
+		  map.data.overrideStyle(feat,{'zIndex':nextZ});
+		  nextZ++;
+		}
 	    });
-	});
-
+	  }));
+	
       } //end initMap
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCntYifbqyiilv85_sjj4OgwhgsAGecEGA&callback=initMap"
