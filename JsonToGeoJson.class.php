@@ -24,7 +24,7 @@ class JsonToGeoJson {
   private function transformPoint($point) {
     if (isset($point->latitude)  &! empty($point->latitude) && isset ($point->longitude) &! empty($point->longitude)) {
       $geometry = array('type' => 'Point',
-			'coordinates' => [$point->longitude,$point->latitude]
+			'coordinates' => [floatval($point->longitude),floatval($point->latitude)]
 			);
       $feature = array();
       foreach ($point as $key=>$value) {
