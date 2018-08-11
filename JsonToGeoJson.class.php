@@ -29,7 +29,9 @@ class JsonToGeoJson {
       $feature = array();
       foreach ($point as $key=>$value) {
 	if ($value != '') {
-	  $feature['properties'][$key]= $value;
+	  if(!in_array($key, ['created','modified'])) {
+	    $feature['properties'][$key]= $value;
+	  }
 	}
       }
       $feature['type'] = 'Feature';
