@@ -2,7 +2,9 @@
 class JsonToGeoJson {
   public function __construct($json, $subfield='') {
     $this->data = json_decode($json);
-    $this->output = array();
+    $this->output = new stdClass();
+    $this->output->type = 'FeatureCollection';
+    $this->output->features = array();
     if (isset($subfield)) { 
       $this->subfield = $subfield; 
       $this->collection = $this->data->$subfield; 
@@ -13,7 +15,7 @@ class JsonToGeoJson {
     foreach ($this->collection as $point) {
       $returned = $this->transformPoint($point);
       if ($returned != null) {
-	array_push($this->output, $returned);
+	array_push($this->output->features, $returned);
       }
     }
     $this->geojson = json_encode($this->output);
@@ -26,7 +28,7 @@ class JsonToGeoJson {
 			);
       $feature = array();
       foreach ($point as $key=>$value) {
-	$feature[$key]= $value;
+	$feature['properties'][$key]= $value;
       }
       $feature['type'] = 'Feature';
       $feature['geometry'] = $geometry;
