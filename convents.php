@@ -17,6 +17,7 @@
         padding: 0;
       }
 li { display: inline-block; background-color: #666;color:#000; margin-left: 10px; padding: 5px; font-family: Arial, Helvetica, sans-serif; }
+  .infowindow li { background-color: #fff; display: block; }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
@@ -45,6 +46,26 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
       map = new google.maps.Map(document.getElementById('map'), options);
       
       map.data.loadGeoJson('convent_geojson.php');
+
+
+      map.data.addListener('click', function(event) {
+	  var title = event.feature.getProperty('name');
+	  var propHTML = '';
+	  console.log(event.feature.f);
+
+	  for (var propertyName in event.feature.f) {
+	    propHTML += '<li>'+propertyName+ ': ' +event.feature.f[propertyName]+'</li>';
+	  }
+          var myHTML = "<h1>"+title+"</h1><ul>"+propHTML+"</ul>";
+	  infowindow.setContent("<div class=\"infowindow\" style='width:300px; text-align: left;'>"+myHTML+"</div>");
+          infowindow.setPosition(event.feature.getGeometry().get());
+	  infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+          infowindow.open(map);
+	  map.data.overrideStyle(event.feature,{'zIndex':nextZ});
+	  nextZ++;
+	});    
+
+
 
       } //end initMap
     </script>
