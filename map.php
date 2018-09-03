@@ -132,7 +132,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 	$controls = '';
 	foreach ($women as $arr) {
 	  foreach ($arr as $w) {
-	  $controls .= '<li style="background-color:'.$colors[$i].'"><input type="checkbox" id="'.$w->name.'" value="" checked> <label for="'.$w->name.'">'.$w->name.'</label> <img class="icon" /></li>';
+	  $controls .= '<li style="background-color:'.$colors[$i].'"><input type="checkbox" id="'.$w->id.'" value="" checked> <label for="'.$w->id.'">'.$w->name.'</label> <img class="icon" /></li>';
 	  $i++;
 	  }
 	}
