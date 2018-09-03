@@ -50,17 +50,10 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 
       var colors = ['#FFCC00', '#FFFF00', '#CCFF00', '#99FF00', '#33FF00', '#00FF66', '#00FF99', '#00FFCC', '#FF0000', '#FF3300', '#FF6600', '#FF9900'];
 
-      /*
-      $('#controls li').each(function(i) {
-	  console.log($(this).text() + ' ' +colors[i]);
-	  $(this).css('background-color',colors[i]);
-	});
-      */
-
       map.data.setStyle(function(feat) {
 	  var id = feat.getProperty('woman_id');
 	  return ({
-	    label: feat.getProperty('nth-city'),
+	      /* label: feat.getProperty('nth-city'), */
 	    icon: { 
 	      	  path: google.maps.SymbolPath.CIRCLE,
 	      fillColor: colors[id],
@@ -75,16 +68,14 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 
       google.maps.event.addDomListener($('#controls li input').click(function () {
 	    var whoWasClicked = $(this).attr('id');
-	    console.log(whoWasClicked);
+	    /* console.log(whoWasClicked); */
 	  var vis = [];
-	  $('#controls ul li input:checkbox').each(function(i) {
+	  $('#controls li input:checkbox').each(function(i) {
 	      var p = $(this).attr('id');
 	      vis[p] = this.checked;
 	    });
-	  //console.log(vis);
 	  map.data.forEach(function(feat) {
-	      //	      overrideStyle(function(feat, 'visible') {
-	      var p = feat.getProperty('travelerName');
+	      var p = feat.getProperty('woman_id');
 	      map.data.overrideStyle(feat,{'visible':vis[p]});
 	      if (p == whoWasClicked && vis[p] === true) 
 		{ 
