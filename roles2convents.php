@@ -1,5 +1,6 @@
 <?
 header("Content-type: text/plain");
+include("config.php");
 
 require ("GeoJsonCollect.class.php");
 $coll = new GeoJsonCollect();
@@ -51,7 +52,7 @@ print($coll->getJson());
 
 
 function GetRoles() { 
-$url = "http://www.wittprojects.net/dev/agb/roles.json";
+$url = JSON_PATH . 'roles.json';
 $ch = curl_init($url);
 curl_setopt($ch, CURLOPT_HEADER, 0); 
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

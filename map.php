@@ -116,7 +116,8 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 
 <?
 	function LoadControls() {
-	$url = "http://www.wittprojects.net/dev/agb/women.json";
+	include('config.php');
+	$url = JSON_PATH . 'women.json';
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
