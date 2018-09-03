@@ -35,6 +35,8 @@ foreach ($roles as $role) {
   $params['long'] = $convents[$role->convent_id]->longitude;
   $params['lat']  = $convents[$role->convent_id]->latitude;
   $params['woman_name'] = $women[$role->woman_id]->name;
+  $params['woman_id'] = $role->woman_id;
+  $params['convent_id'] = $role->convent_id;
   $params['convent_name'] = $convents[$role->convent_id]->name;
   $params['role'] = $role->role;
   $params['title'] = $params['woman_name'] . ' at ' .$params['convent_name'];
