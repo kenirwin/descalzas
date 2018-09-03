@@ -20,18 +20,11 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
+			      
+			      <? LoadControls(); ?>
   <body>
     <div id="controls">
       <ul>
-      <li><input type="checkbox" id="alej" value="alej" checked> <label for="alej">Alejandra</label><img class="icon" /></li>
-      <li><input type="checkbox" id="andy" value="andy" checked> <label for="andy">Andy</label><img class="icon" /></li>
-      <li><input type="checkbox" id="betsy" value="betsy" checked> <label for="betsy">Betsy</label><img class="icon" /></li>
-      <li><input type="checkbox" id="bill" value="bill" checked> <label for="bill">Bill</label><img class="icon" /></li>
-<li><input type="checkbox" id="esther" value="esther" checked> <label for="esther">Esther</label><img class="icon" /></li>     
-      <li><input type="checkbox" id="kate" value="kate" checked> <label for="kate">Kate</label><img class="icon" /></li>
-      <li><input type="checkbox" id="ken" value="ken" checked> <label for="ken">Ken</label><img class="icon" /></li>
-      <li><input type="checkbox" id="maureen" value="maureen" checked> <label for="maureen">Maureen</label><img class="icon" /></li>
-      <li><input type="checkbox" id="pat" value="pat" checked> <label for="pat">Patrick</label><img class="icon" /></li>
       </ul>
     </div>
     <div id="map"></div>
@@ -57,14 +50,15 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 
       var colors = ['#FFCC00', '#FFFF00', '#CCFF00', '#99FF00', '#33FF00', '#00FF66', '#00FF99', '#00FFCC', '#FF0000', '#FF3300', '#FF6600', '#FF9900'];
 
-
+      /*
       $('#controls li').each(function(i) {
 	  console.log($(this).text() + ' ' +colors[i]);
 	  $(this).css('background-color',colors[i]);
 	});
+      */
 
       map.data.setStyle(function(feat) {
-	  var id = feat.getProperty('travelerId');
+	  var id = feat.getProperty('woman_id');
 	  return ({
 	    label: feat.getProperty('nth-city'),
 	    icon: { 
@@ -72,7 +66,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 	      fillColor: colors[id],
 	      fillOpacity: 0.8,
 	      strokeWeight: 0.5,
-	      strokeColor: '#fff',
+	      strokeColor: '#000',
 		scale: 10,
 		visible: true,
 		  }
@@ -81,7 +75,7 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 
       google.maps.event.addDomListener($('#controls li input').click(function () {
 	    var whoWasClicked = $(this).attr('id');
-	    //console.log(whoWasClicked);
+	    console.log(whoWasClicked);
 	  var vis = [];
 	  $('#controls ul li input:checkbox').each(function(i) {
 	      var p = $(this).attr('id');
@@ -102,10 +96,13 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
 	
 
       map.data.addListener('click', function(event) {
-	  var title = event.feature.getProperty('travelerName') + ' in ' + event.feature.getProperty('name');
+	  var title = event.feature.getProperty('title');
 	  title = title.charAt(0).toUpperCase() + title.substr(1);
+	  /*
 	  var stop = event.feature.getProperty('nth-city');
-          var myHTML = "<h1>"+title+"</h1><p>Stop number: "+stop+"</p>"; //event.feature.getProperty("Description");
+	  */
+
+          var myHTML = "<h1>"+title+"</h1>";
 	  infowindow.setContent("<div style='width:150px; text-align: center;'>"+myHTML+"</div>");
           infowindow.setPosition(event.feature.getGeometry().get());
 	  infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
@@ -120,3 +117,24 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
     async defer></script>
   </body>
 </html>
+
+<?
+	function LoadControls() {
+	$url = "http://www.wittprojects.net/dev/agb/women.json";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$women_json = curl_exec($ch);
+	curl_close($ch);
+	$women = json_decode($women_json);
+	$colors = ['#FFCC00', '#FFFF00', '#CCFF00', '#99FF00', '#33FF00', '#00FF66', '#00FF99', '#00FFCC', '#FF0000', '#FF3300', '#FF6600', '#FF9900'];
+	$i = 0;
+	$controls = '';
+	foreach ($women as $arr) {
+	  foreach ($arr as $w) {
+	  $controls .= '<li style="background-color:'.$colors[$i].'"><input type="checkbox" id="'.$w->name.'" value="" checked> <label for="'.$w->name.'">'.$w->name.'</label> <img class="icon" /></li>';
+	  $i++;
+	  }
+	}
+	print '<ul id="controls">'.$controls.'</ul>';
+      }
