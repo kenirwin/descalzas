@@ -48,7 +48,12 @@ li { display: inline-block; background-color: #666;color:#000; margin-left: 10px
       
       map.data.loadGeoJson('roles2convents.php');
 
-      var colors = ['#FFCC00', '#FFFF00', '#CCFF00', '#99FF00', '#33FF00', '#00FF66', '#00FF99', '#00FFCC', '#FF0000', '#FF3300', '#FF6600', '#FF9900'];
+      var colors = [];
+      $('#controls li').each(function() {
+	  var id = $(this).find('input').attr('id');
+	  var color = $(this).css('background-color');
+	  colors[id] = color;
+	});
 
       map.data.setStyle(function(feat) {
 	  var id = feat.getProperty('woman_id');
