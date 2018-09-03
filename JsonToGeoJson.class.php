@@ -1,7 +1,12 @@
 <?
 class JsonToGeoJson {
-  public function __construct($json, $subfield='') {
-    $this->data = json_decode($json);
+  public function __construct($input, $input_type='json', $subfield=null) {
+    if ($input_type=='json') {
+      $this->data = json_decode($input);
+    }
+    elseif ($input_type=='object') {
+      $this->data = $input;
+    }
     $this->output = new stdClass();
     $this->output->type = 'FeatureCollection';
     $this->output->features = array();
